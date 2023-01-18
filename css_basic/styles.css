@@ -36,8 +36,7 @@ body {
 }
 blockquote {
 	quotes: none;
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote {
 	content: '';
 	content: none;
 }
