@@ -13,7 +13,7 @@ body {
 
 /* HEADER */
 header {
-    padding: 25px;
+    padding: 23px;
     display: flex;
     justify-content: space-between;
 }
@@ -24,7 +24,7 @@ header {
 }
 
 .logo img {
-    width: 100px;
+    width: 90px;
     height: auto;
 }
 
@@ -52,7 +52,7 @@ header {
 }
 
 .nav a:hover {
-    color: #000;
+    color: #808;
 }
 
 /* MAIN */
