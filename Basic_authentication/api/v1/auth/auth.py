@@ -26,6 +26,8 @@ class Auth:
             if path in p:
                 return False
 
+        return True
+
     def authorization_header(self, request=None) -> str:
         '''Authorization header'''
         return None
