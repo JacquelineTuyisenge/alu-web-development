@@ -11,15 +11,15 @@ import base64
 class BasicAuth(Auth):
     '''Basic Auth class that inherits from Auth'''
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(self, au_h: str) -> str:
         '''Extract base64 authorization header'''
 
-        if authorization_header is None:
+        if not au_h:
             return None
 
-        if type(authorization_header) is not str:
+        if type(au_h) != str:
             return None
 
-        if not authorization_header.startswith("Basic "):
+        if not au_h.startswith("Basic "):
             return None
-        return authorization_header.split("")[1]
+        return au_h.split(" ")[1:]
