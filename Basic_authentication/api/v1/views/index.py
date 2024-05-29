@@ -31,4 +31,5 @@ def unauthorized() -> str:
     Return:
       - 401
     """
+    print("Abort 401 called")
     abort(401)
