@@ -12,7 +12,7 @@ class BasicAuth(Auth):
     '''Basic Auth class that inherits from Auth'''
 
     def extract_base64_authorization_header(
-        self, 
+        self,
         authorization_header: str
     ) -> str:
         '''Extract base64 authorization header'''
