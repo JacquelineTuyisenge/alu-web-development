@@ -64,4 +64,3 @@ class BasicAuth(Auth):
         credentials = decoded_base64_authorization_header.split(":", 1)
 
         return credentials[0], credentials[1]
-
