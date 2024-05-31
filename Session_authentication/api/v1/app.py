@@ -10,6 +10,7 @@ import os
 from os import getenv
 from api.v1.auth.auth import Auth
 from api.v1.auth.basic_auth import BasicAuth
+from api.v1.auth.session_auth import SessionAuth
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
@@ -22,6 +23,8 @@ if os.getenv("AUTH_TYPE") == "auth":
     auth = Auth()
 if os.getenv("AUTH_TYPE") == "basic_auth":
     auth = BasicAuth()
+if os.getenv("AUTH_TYPE") == "session_auth":
+    auth = SessionAuth()
 
 
 @app.errorhandler(404)
