@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-'''Basic Auth class that inherits from Auth'''
+'''Session Auth class that inherits from Auth'''
 
 from flask import request
 from typing import TypeVar
@@ -13,22 +13,21 @@ class SessionAuth(Auth):
     user_id_by_session_id = {}
 
     def create_session(self, user_id: str = None) -> str:
-        """
-        create_session.
-        """
+        '''Creates a Session ID for a user_id'''
         if not user_id or type(user_id) != str:
-            return
+            return None
+
         session_id = str(uuid4())
-        SessionAuth.user_id_by_session_id[session_id] = user_id
+        self.user_id_by_session_id[session_id] = user_id
+
         return session_id
 
     def user_id_for_session_id(self, session_id: str = None) -> str:
-        """
-        user_id_for_session_id.
-        """
+        '''Retrieves a User ID based on a Session ID'''
         if not session_id or type(session_id) != str:
-            return
-        return SessionAuth.user_id_by_session_id.get(session_id, None)
+            return None
+
+        return self.user_id_by_session_id.get(session_id, None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
@@ -40,17 +39,20 @@ class SessionAuth(Auth):
                 user_id = self.user_id_for_session_id(session_cookie)
                 return User.get(user_id)
 
-    def destroy_session(self, request=None) -> bool:
+    def destroy_session(self, request=None):
         """
-        destroying the session.
+        destroy_session.
         """
         if not request:
             return False
+
         session_cookie = self.session_cookie(request)
         if not session_cookie:
             return False
+
         user_id = self.user_id_for_session_id(session_cookie)
         if not user_id:
             return False
+
         self.user_id_by_session_id.pop(session_cookie, None)
         return True
