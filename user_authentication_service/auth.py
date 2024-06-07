@@ -26,11 +26,11 @@ def _hash_password(password: str) -> str:
         def __init__(self):
             self._db = DB()
 
-        def register(self, email: str, password: str) -> User:
+        def register_user(self, email: str, password: str) -> User:
             '''registering a user'''
             try:
                 already_exist_user = self._db.find_user_by(email=email)
-                raise  ValueError(f'User {email} already exists.')
+                raise ValueError(f'User {email} already exists.')
             except NoResultFound:
                 hashed_password = _hash_password(password)
                 return self._db.add_user(email, hashed_password)
