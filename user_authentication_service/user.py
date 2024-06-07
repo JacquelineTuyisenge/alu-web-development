@@ -6,6 +6,7 @@ from sqlalchemy import Column, Integer, String
 
 Base = declarative_base()
 
+
 class User(Base):
     '''class user model'''
     __tablename__ = 'users'
