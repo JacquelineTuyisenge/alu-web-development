@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-'''database'''
+""" db class """
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-
 from user import Base, User
+from sqlalchemy.exc import InvalidRequestError
 
 
 class DB:
-    '''database class'''
+    """DB class"""
 
     def __init__(self):
-        self._engine = create_engine("sqlite:///a.db", echo=True)
+        self._engine = create_engine("sqlite:///a.db", echo=False)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -31,3 +31,21 @@ class DB:
         self._session.commit()
         return user
 
+    def find_user_by(self, **kwargs) -> User:
+        """find user by"""
+        if not kwargs:
+            raise InvalidRequestError
+        for key in kwargs:
+            if not hasattr(User, key):
+                raise InvalidRequestError
+        return self._session.query(User).filter_by(**kwargs).one()
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """update user"""
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs.items():
+            if not hasattr(user, key):
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
+        return None
