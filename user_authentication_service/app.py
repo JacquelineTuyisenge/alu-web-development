@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-'''basic flask app'''
+""" basic flask app"""
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request, abort, make_response, redirect
 from auth import Auth
 
 AUTH = Auth()
@@ -11,8 +11,8 @@ app.url_map.strict_slashes = False
 
 
 @app.route('/')
-def hello_there():
-    """hello there"""
+def hello_world():
+    """hello world"""
     return jsonify({"message": "Bienvenue"})
 
 
